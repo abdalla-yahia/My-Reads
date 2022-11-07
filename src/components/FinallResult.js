@@ -8,7 +8,7 @@ import { useDispatch,useSelector} from 'react-redux';
 export default function FinallResult(props) {
     const [resultSearch, setResultSearch] = useState('')
     const dispatch =useDispatch()
-    const store = useSelector(state=>state.globalStore)
+    const store = useSelector(state=>state.currentlyReading)
     useEffect(() => {
         const ResultHandeller = async () => {
             const res = setResultSearch(await search(props.input))
@@ -28,10 +28,12 @@ const RESULT = () => {
         return <div>
             <div className="bookshelf-books" >
                 <ol className="books-grid" >
-            {resultSearch.map((e) => {
-                if (e.shelf == null) {
-                    e.shelf='none'
-                }
+                    {resultSearch.map((e) => {
+                        if (e.shelf == null) {
+                            e.shelf = "none"
+                        }
+                        if (Array.isArray(store)) {
+                            store.map(el =>el.id === e.id ? e.shelf = el.shelf :"")}
                 return <>
                     <div className='' >
                         <li key={e.id}>
@@ -52,7 +54,7 @@ const RESULT = () => {
                                             e.shelf = i.target.value
                                         }
                                         }>
-                                        <option value="none" disabled>
+                                        <option value="disabled" disabled>
                                             Move to...
                                         </option>
                                         <option value="currentlyReading">
