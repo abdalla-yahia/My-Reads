@@ -6,7 +6,7 @@ import "./App.css";
 
 function App() {
   const [showSearchPage, setShowSearchpage] = useState(false);
-
+  const [globalStore, setGlobalStore]=useState('')
   return (
     <div className="app">
       {showSearchPage ?

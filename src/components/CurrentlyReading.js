@@ -1,71 +1,75 @@
-import React,{useState,useEffect} from 'react'
-import { get } from '../BooksAPI'
-import { useSelector } from 'react-redux'
+import React,{useState,useEffect,useCallback} from 'react'
+import { useSelector,useDispatch } from 'react-redux'
 
 
 export default function CurrentlyReading() {
     const [state, setState] = useState([])
-    const [data, setData] =useState([])
-    const store = useSelector(state => state.name)
+    const store = useSelector(state => state.currentlyReading)
+    const dispatch = useDispatch()
+
     useEffect(() => {
         const DataHandeller = async () => {
-            setData( await store.currentlyReading)
+            setState( await store)
         }
         DataHandeller()
-    },[])
-    useEffect(() => {
-    const HandellerGet = async () => {
-        data.map(async (e) => {
-            const res = await get(e)
-            return setState(prev => { return [...prev, res]})
-        })
-        }
-        HandellerGet()
-    }, [data])
+    }, [state, store])
 
-    const RESULT = () => {
+    const RESULT = useCallback(() => {
         if (state === undefined) {
             return <h1>Sorry 😀</h1>
         }
         else if (Array.isArray(state)) {
             const res = state.map(el => {
-                return<>
-                <li>
-                <div className="book">
-                <div className="book-top">
-                    <div
-                    className="book-cover"
-                    style={{
-                        width: 128,
-                        height: 193,
-                        backgroundImage:
-                        `url(${el.imageLinks.thumbnail})`
-                    }}
-                    ></div>
-                    <div className="book-shelf-changer">
-                    <select>
-                        <option value="none" disabled>
-                        Move to...
-                        </option>
-                        <option value="currentlyReading">
-                        Currently Reading
-                        </option>
-                        <option value="wantToRead">Want to Read</option>
-                        <option value="read">Read</option>
-                        <option value="none">None</option>
-                    </select>
-                    </div>
-                </div>
-                    <div className="book-title">{ el.title}</div>
-                    <div className="book-authors">{ el.authors}</div>
-                </div>
-            </li>
+                return <>{el.shelf === "currentlyReading" &&
+                    <li>
+                        <div className="book">
+                            <div className="book-top">
+                                <div
+                                    className="book-cover"
+                                    style={{
+                                        width: 128,
+                                        height: 193,
+                                        backgroundImage:
+                                            `url(${el.imageLinks.thumbnail})`
+                                    }}
+                                ></div>
+                                <div className="book-shelf-changer">
+                                    <select defaultValue={el.shelf} onChange={(i) => {
+                                        // dispatch({type:'global', payload :state})
+                                        dispatch({ type: 'add', payload:''})
+                                        setState(prev => {
+                                            return {
+                                                ...prev
+                                            }
+                                        })
+                                        el.shelf = i.target.value
+                                    }
+                                    }>
+                                        <option value="none" disabled>
+                                            Move to...
+                                        </option>
+                                        <option value="currentlyReading">
+                                            Currently Reading
+                                        </option>
+                                        <option value="wantToRead">Want to Read</option>
+                                        <option value="read">Read</option>
+                                        <option value="none">None</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div className="book-title">{el.title}</div>
+                            <div className="book-authors">{el.authors}</div>
+                        </div>
+                    </li>
+                }
                 </>
             })
             return res;
         }
-            }
-    
+    })
+ useEffect(() => {
+        RESULT()
+    },[RESULT, state])
 return (
     <>
             {console.log(state)}

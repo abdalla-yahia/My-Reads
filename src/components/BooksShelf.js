@@ -2,10 +2,14 @@ import React,{useState} from "react";
 import CurrentlyReading from "./CurrentlyReading";
 import Read from "./Read";
 import Want2Read from "./Want2Read";
+import { useSelector } from "react-redux";
 
 const BooksShelf = (props) => {
     const [state, setState] = useState('')
-    
+    const store = useSelector(state => state)
+    console.log(store.currentlyReading)
+    console.log(store.wantToRead)
+    console.log(store.read)
     return (
     <div className="list-books">
     <div className="list-books-title">

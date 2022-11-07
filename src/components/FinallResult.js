@@ -2,19 +2,23 @@
 import React, { useState} from 'react'
 import { useEffect } from 'react';
 import { search } from '../BooksAPI';
-import { useDispatch} from 'react-redux';
+import { useDispatch,useSelector} from 'react-redux';
 
 
 export default function FinallResult(props) {
     const [resultSearch, setResultSearch] = useState('')
     const dispatch =useDispatch()
-   
+    const store = useSelector(state=>state.globalStore)
     useEffect(() => {
         const ResultHandeller = async () => {
-        const res =setResultSearch(await search(props.input))
+            const res = setResultSearch(await search(props.input))
         }
         ResultHandeller()
+        
     }, [props.input])
+
+console.log(resultSearch)
+console.log(store)
 
 const RESULT = () => {
     if (resultSearch === undefined) {
@@ -25,6 +29,9 @@ const RESULT = () => {
             <div className="bookshelf-books" >
                 <ol className="books-grid" >
             {resultSearch.map((e) => {
+                if (e.shelf == null) {
+                    e.shelf='none'
+                }
                 return <>
                     <div className='' >
                         <li key={e.id}>
@@ -40,8 +47,9 @@ const RESULT = () => {
                                     }}
                                 ></div>
                                 <div className="book-shelf-changer">
-                                        <select onChange={(i) => {
-                                                dispatch({ type: i.target.value,payload:e.id })
+                                        <select defaultValue={e.shelf} onChange={(i) => {
+                                            dispatch({ type: 'add', payload:e})
+                                            e.shelf = i.target.value
                                         }
                                         }>
                                         <option value="none" disabled>
