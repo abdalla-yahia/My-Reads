@@ -6,7 +6,7 @@ import { useDispatch,useSelector} from 'react-redux';
 
 
 export default function FinallResult(props) {
-    const [resultSearch, setResultSearch] = useState('')
+    const [resultSearch, setResultSearch] = useState([])
     const [state, setState] = useState('')
     const dispatch =useDispatch()
     const store = useSelector(state => state.currentlyReading)
@@ -24,10 +24,10 @@ export default function FinallResult(props) {
 
 
 const RESULT = () => {
-    if (resultSearch === undefined) {
-        return <h1>Find the books you want 😀</h1>
+    if (resultSearch === undefined || resultSearch.length < 1 ) {
+        return <h1>Find here the books you want 😀</h1>
     }
-    else if (Array.isArray(resultSearch)) {
+    if (Array.isArray(resultSearch)) {
         return <div>
             <div className="bookshelf-books" >
                 <ol className="books-grid" >
@@ -51,7 +51,7 @@ const RESULT = () => {
                                         }}
                                     ></div>}
                                 <div className="book-shelf-changer">
-                                        <select defaultValue={e.shelf} onChange={(i) => {
+                                        <select defaultValue={e.shelf} selected='✓' onChange={(i) => {
                                             
                                             if (e.shelf !== "none") {
                                                 dispatch({ type: 'remove', payload:e,shelf:i.target.value})
@@ -87,7 +87,7 @@ const RESULT = () => {
                     </div>
         </div> 
     } else if(Object(resultSearch)) {
-        return <h1>Oops Not Found !! 🙂</h1>
+        return <h1>Oops Not Found Any Thing!! 🙂</h1>
     } else {
         return <h1>Error !! 🙂</h1>
     }
