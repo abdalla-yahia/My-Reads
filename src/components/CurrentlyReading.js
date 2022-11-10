@@ -2,17 +2,14 @@ import React,{useState,useEffect,useCallback} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 
 
-export default function CurrentlyReading() {
+export default function CurrentlyReading(props) {
     const [state, setState] = useState([])
     const store = useSelector(state => state.currentlyReading)
     const dispatch = useDispatch()
 
     useEffect(() => {
-        const DataHandeller = async () => {
-            setState( await store)
-        }
-        DataHandeller()
-    }, [state, store])
+            setState( props.shelf)
+    }, [props.shelf])
 
     const RESULT = useCallback(() => {
         if (state === undefined) {
@@ -35,7 +32,6 @@ export default function CurrentlyReading() {
                                 ></div>
                                 <div className="book-shelf-changer">
                                     <select defaultValue={el.shelf} onChange={(i) => {
-                                        // dispatch({type:'global', payload :state})
                                         dispatch({ type: 'add', payload:''})
                                         setState(prev => {
                                             return {
@@ -66,13 +62,11 @@ export default function CurrentlyReading() {
             })
             return res;
         }
-    })
- useEffect(() => {
-        RESULT()
-    },[RESULT, state])
+    },[dispatch, state])
+
 return (
     <>
-            {console.log(state)}
+
     <div className="bookshelf">
         <h2 className="bookshelf-title">Currently Reading</h2>
         <div className="bookshelf-books">

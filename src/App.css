@@ -164,6 +164,25 @@ body,
   cursor: pointer;
   background-image: url("./icons/arrow-back.svg");
 }
+.book-shelf-changer select option[selected]{
+  content: '✓';
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background-color: rgb(81, 184, 89);
+  position: relative;
+}
+.book-shelf-changer select option[selected]::before{
+  content: '✓';
+  width: 20%;
+  height: 100%;
+  top: 0;
+  left: 10%;
+  cursor: pointer;
+  color: rgb(255, 255, 255);
+  background-color: rgb(81, 184, 89);
+  position: absolute;
+
+}
 
 /* book cover */
 

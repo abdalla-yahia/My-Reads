@@ -2,20 +2,17 @@ import React,{useState,useEffect,useCallback} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 
 
-export default function Want2Read() {
+export default function Want2Read(props) {
     const [state, setState] = useState([])
     const dispatch = useDispatch()
     
     const store = useSelector(state => state.currentlyReading)
     useEffect(() => {
-        const DataHandeller = async () => {
-            setState( await store)
-        }
-        DataHandeller()
-    },[state])
- useEffect(() => {
-        RESULT()
-    },[state])
+       
+            setState(props.shelf)
+        
+    },[props.shelf])
+
     const RESULT = useCallback(() => {
         if (state === undefined) {
             return <h1>Sorry 😀</h1>
@@ -41,7 +38,7 @@ export default function Want2Read() {
                                         setState(prev => {
                                             return {
                                                 ...prev,
-                                               
+                                            
                                             }
                                         })
                                         el.shelf = i.target.value
@@ -68,18 +65,18 @@ export default function Want2Read() {
             })
             return res;
         }
-    }, [state])
-   
-  return (
-      <>
-          <div className="bookshelf">
+    }, [dispatch, state])
+
+    return (
+    <>
+        <div className="bookshelf">
         <h2 className="bookshelf-title">Want to Read</h2>
         <div className="bookshelf-books">
-                  <ol className="books-grid">
-                      {RESULT()}
+                <ol className="books-grid">
+                    {RESULT()}
             </ol>
         </div>
         </div>
-      </>
-  )
+    </>
+    )
 }

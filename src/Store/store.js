@@ -19,22 +19,13 @@ const reducer = (state = initState, action) => {
                 ...state,
                 add:state.currentlyReading.push(action.payload)
             }
-        // case 'wantToRead':
-        //     return {
-        //         ...state,
-        //         currentlyReading: state.currentlyReading.push( action.payload)
-        //     }
-        // case 'read':
-        //     return {
-        //         ...state,
-        //         currentlyReading: state.currentlyReading.push( action.payload)
-        //     }
-        case 'global':
+        case 'remove':
             return {
                 ...state,
-                add:state.globalStore.push(action.payload)
+                remove: state.currentlyReading.filter(el => 
+                el.id === action.payload.id ? el.shelf = action.shelf : ''
                 
-            }
+                )}
         default:
             return state
     }
@@ -43,3 +34,4 @@ const reducer = (state = initState, action) => {
 const store = createStore(reducer)
 
 export default store;
+

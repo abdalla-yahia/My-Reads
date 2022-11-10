@@ -2,20 +2,16 @@ import React,{useState,useEffect,useCallback} from 'react'
 import { useSelector,useDispatch } from 'react-redux'
 
 
-export default function Read() {
+export default function Read(props) {
     const [state, setState] = useState([])
     const dispatch = useDispatch()
     
     const store = useSelector(state => state.currentlyReading)
+
     useEffect(() => {
-        const DataHandeller = async () => {
-            setState( await store)
-        }
-        DataHandeller()
-    },[state])
- useEffect(() => {
-        RESULT()
-    },[state])
+            setState(props.shelf)
+    }, [props.shelf])
+    
     const RESULT = useCallback(() => {
         if (state === undefined) {
             return <h1>Sorry 😀</h1>
@@ -67,10 +63,10 @@ export default function Read() {
             })
             return res;
         }
-    }, [state])
-   
-    
-  return (
+    }, [dispatch, state])
+
+
+    return (
     <>
         <div className="bookshelf">
         <h2 className="bookshelf-title">Read</h2>
@@ -81,5 +77,5 @@ export default function Read() {
         </div>
         </div>
     </>
-  )
+    )
 }

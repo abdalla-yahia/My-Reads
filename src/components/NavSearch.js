@@ -1,19 +1,19 @@
-
+import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import FinallResult from "./FinallResult";
 
-const NavSearch = (props) => {
+const NavSearch = () => {
     const [inputValue, setInputValue] = useState('')
     return (<>
         
         <div className="search-books">
           <div className="search-books-bar">
-            <a
+            <Link
               className="close-search"
-              onClick={() => props.setsrch(!props.srch)}
+              to='/'
             >
               Close
-            </a>
+            </Link>
             <div className="search-books-input-wrapper">
                 <input
                 type="text"

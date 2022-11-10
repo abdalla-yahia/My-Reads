@@ -1,15 +1,23 @@
-import React,{useState} from "react";
+import React,{useState,useEffect} from "react";
 import CurrentlyReading from "./CurrentlyReading";
 import Read from "./Read";
 import Want2Read from "./Want2Read";
-import { useSelector } from "react-redux";
+import {Link } from "react-router-dom";
+import { useSelector,useDispatch } from "react-redux";
 
-const BooksShelf = (props) => {
-    const [state, setState] = useState('')
+const BooksShelf = () => {
+    const [state, setState] = useState([])
     const store = useSelector(state => state)
-    console.log(store.currentlyReading)
-    console.log(store.wantToRead)
-    console.log(store.read)
+    const dispatch = useDispatch()
+    //Set Data Into State from Store
+    useEffect(() => {
+        const fun =async () => {
+            await store
+            setState( await store.currentlyReading)
+        }
+        fun()
+    }, [dispatch, store])
+
     return (
     <div className="list-books">
     <div className="list-books-title">
@@ -17,13 +25,13 @@ const BooksShelf = (props) => {
     </div>
     <div className="list-books-content">
     <div>
-        <CurrentlyReading />
-        <Want2Read />
-        <Read />
+        <CurrentlyReading shelf={state.filter(e => e.shelf === "currentlyReading")} />
+        <Want2Read shelf={state.filter(e => e.shelf === "wantToRead")}/>
+        <Read shelf={state.filter(e => e.shelf === "read")}/>
     </div>
     </div>
-    <div className="open-search">
-    <a onClick={() => props.setsrch(!props.srch)}>Add a book</a>
+            <div className="open-search">
+    <Link to='search'>Add a book</Link>
     </div>
 </div> 
     )

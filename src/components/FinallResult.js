@@ -1,4 +1,4 @@
-/* eslint-disable react-hooks/exhaustive-deps */
+
 import React, { useState} from 'react'
 import { useEffect } from 'react';
 import { search } from '../BooksAPI';
@@ -7,18 +7,21 @@ import { useDispatch,useSelector} from 'react-redux';
 
 export default function FinallResult(props) {
     const [resultSearch, setResultSearch] = useState('')
+    const [state, setState] = useState('')
     const dispatch =useDispatch()
-    const store = useSelector(state=>state.currentlyReading)
+    const store = useSelector(state => state.currentlyReading)
+    
     useEffect(() => {
         const ResultHandeller = async () => {
-            const res = setResultSearch(await search(props.input))
+            if (props.input !== "") {
+                const res = setResultSearch(await search(props.input))
+            }
+            setState(await store)
         }
         ResultHandeller()
         
-    }, [props.input])
+    }, [props.input, store])
 
-console.log(resultSearch)
-console.log(store)
 
 const RESULT = () => {
     if (resultSearch === undefined) {
@@ -35,24 +38,30 @@ const RESULT = () => {
                         if (Array.isArray(store)) {
                             store.map(el =>el.id === e.id ? e.shelf = el.shelf :"")}
                 return <>
-                    <div className='' >
                         <li key={e.id}>
                         <div className="book">
                             <div className="book-top">
-                                <div 
-                                    className="book-cover"
-                                    style={{
-                                        width: 128,
-                                        height: 193,
-                                        backgroundImage:
-                                            `url(${e.imageLinks.thumbnail})`,
-                                    }}
-                                ></div>
+                                    {e.imageLinks !== undefined && <div
+                                        className="book-cover"
+                                        style={{
+                                            width: 128,
+                                            height: 193,
+                                            backgroundImage:
+                                                `url(${e.imageLinks.thumbnail})`
+                                        }}
+                                    ></div>}
                                 <div className="book-shelf-changer">
                                         <select defaultValue={e.shelf} onChange={(i) => {
-                                            dispatch({ type: 'add', payload:e})
-                                            e.shelf = i.target.value
-                                        }
+                                            
+                                            if (e.shelf !== "none") {
+                                                dispatch({ type: 'remove', payload:e,shelf:i.target.value})
+                                                e.shelf = i.target.value
+                                            } else {
+                                                
+                                                dispatch({ type: 'add', payload: e })
+                                                e.shelf = i.target.value
+                                            }
+                                                }
                                         }>
                                         <option value="disabled" disabled>
                                             Move to...
@@ -67,10 +76,10 @@ const RESULT = () => {
                                 </div>
                             </div>
                             <div className="book-title">{e.title}</div>
-                            <div className="book-authors">{e.authors}</div> 
+                                {e.authors !== undefined && <div className="book-authors">{e.authors}</div> }
                         </div>
                     </li> 
-                </div>
+                
                     </>
             })
             }
