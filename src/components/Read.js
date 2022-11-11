@@ -4,12 +4,11 @@ import { useSelector,useDispatch } from 'react-redux'
 
 export default function Read(props) {
     const [state, setState] = useState([])
-    const dispatch = useDispatch()
-    
     const store = useSelector(state => state.mainStore)
+    const dispatch = useDispatch()
 
     useEffect(() => {
-            setState(props.shelf)
+        setState(props.shelf)
     }, [props.shelf])
     
     const RESULT = useCallback(() => {
@@ -21,15 +20,25 @@ export default function Read(props) {
                 return <li key={el.id}>
                         <div className="book">
                             <div className="book-top">
+                            {el.imageLinks === undefined ?
+                            <div
+                                className="book-cover"
+                                style={{
+                                    width: 128,
+                                    height: 193,
+                                    
+                                }}>
+                                </div>
+                                :
                                 <div
-                                    className="book-cover"
-                                    style={{
-                                        width: 128,
-                                        height: 193,
-                                        backgroundImage:
-                                            `url(${el.imageLinks.thumbnail})`
-                                    }}
-                                ></div>
+                                className="book-cover"
+                                style={{
+                                    width: 128,
+                                    height: 193,
+                                    backgroundImage:
+                                        `url(${el.imageLinks.thumbnail})`
+                                }}
+                            ></div>}
                                 <div className="book-shelf-changer">
                                     <select defaultValue={el.shelf} onChange={(i) => {
                                         dispatch({ type: 'add', payload:''})

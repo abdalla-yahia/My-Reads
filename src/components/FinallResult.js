@@ -10,13 +10,16 @@ export default function FinallResult(props) {
     const [state, setState] = useState('')
     const dispatch =useDispatch()
     const store = useSelector(state => state.mainStore)
+
+    useEffect(() => {
+        setState(props.state)
+    }, [props.state])
     
     useEffect(() => {
         const ResultHandeller = async () => {
             if (props.input !== "") {
                 const res = setResultSearch(await search(props.input))
             }
-            setState(await store)
         }
         ResultHandeller()
         
@@ -36,7 +39,7 @@ const RESULT = () => {
                             e.shelf = "none"
                         }
                         if (Array.isArray(store)) {
-                            store.map(el =>el.id === e.id ? e.shelf = el.shelf :"")}
+                            state.map(el =>el.id === e.id ? e.shelf = el.shelf :"")}
                 return<li key={e.id}>
                         <div className="book">
                             <div className="book-top">

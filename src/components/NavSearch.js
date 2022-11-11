@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { useState } from 'react';
 import FinallResult from "./FinallResult";
 
-const NavSearch = () => {
+const NavSearch = (props) => {
     const [inputValue, setInputValue] = useState('')
     return (<>
         
@@ -24,7 +24,7 @@ const NavSearch = () => {
             </div>
           </div>
           <div className="search-books-results">
-          <FinallResult input={inputValue}/>
+          <FinallResult state={props.state} input={inputValue}/>
           </div>
         </div>
         
