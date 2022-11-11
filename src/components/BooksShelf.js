@@ -30,7 +30,7 @@ const BooksShelf = () => {
         <Read shelf={state.filter(e => e.shelf === "read")}/>
     </div>
     </div>
-            <div className="open-search">
+    <div className="open-search">
     <Link to='search'>Add a book</Link>
     </div>
 </div> 

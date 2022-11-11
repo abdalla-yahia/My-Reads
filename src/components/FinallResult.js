@@ -37,8 +37,7 @@ const RESULT = () => {
                         }
                         if (Array.isArray(store)) {
                             store.map(el =>el.id === e.id ? e.shelf = el.shelf :"")}
-                return <>
-                        <li key={e.id}>
+                return<li key={e.id}>
                         <div className="book">
                             <div className="book-top">
                                     {e.imageLinks !== undefined && <div
@@ -51,7 +50,7 @@ const RESULT = () => {
                                         }}
                                     ></div>}
                                 <div className="book-shelf-changer">
-                                        <select defaultValue={e.shelf} selected='✓' onChange={(i) => {
+                                        <select defaultValue={e.shelf} onChange={(i) => {
                                             
                                             if (e.shelf !== "none") {
                                                 dispatch({ type: 'remove', payload:e,shelf:i.target.value})
@@ -66,21 +65,22 @@ const RESULT = () => {
                                         <option value="disabled" disabled>
                                             Move to...
                                         </option>
-                                        <option value="currentlyReading">
+                                        <option value="currentlyReading" >
                                             Currently Reading
                                         </option>
-                                        <option value="wantToRead">Want to Read</option>
-                                        <option value="read">Read</option>
-                                        <option value="none" selected>None</option>
+                                        <option value="wantToRead" >Want to Read</option>
+                                        <option value="read" >Read</option>
+                                        <option value="none" >None</option>
                                     </select>
                                 </div>
                             </div>
                             <div className="book-title">{e.title}</div>
                                 {e.authors !== undefined && <div className="book-authors">{e.authors}</div> }
-                        </div>
+                    </div>
+                    
                     </li> 
                 
-                    </>
+                
             })
             }
                 </ol>

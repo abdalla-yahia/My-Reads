@@ -18,8 +18,7 @@ export default function Read(props) {
         }
         else if (Array.isArray(state)) {
             const res = state.map(el => {
-                return <>{el.shelf === "read" &&
-                    <li>
+                return <li key={el.id}>
                         <div className="book">
                             <div className="book-top">
                                 <div
@@ -42,7 +41,7 @@ export default function Read(props) {
                                         el.shelf = i.target.value
                                     }
                                     }>
-                                        <option value="none" disabled>
+                                        <option value="disabled" disabled>
                                             Move to...
                                         </option>
                                         <option value="currentlyReading">
@@ -58,8 +57,6 @@ export default function Read(props) {
                             <div className="book-authors">{el.authors}</div>
                         </div>
                     </li>
-                }
-                </>
             })
             return res;
         }

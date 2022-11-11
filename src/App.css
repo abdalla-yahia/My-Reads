@@ -173,6 +173,10 @@ body,
   background-color: rgb(81, 184, 89);
   font-size: large;
 }
+.more-details{
+  color: #2e7c31;
+  cursor: pointer;
+}
 
 
 /* book cover */
