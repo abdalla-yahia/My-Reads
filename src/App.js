@@ -7,10 +7,9 @@ import { useSelector, useDispatch } from "react-redux";
 import {getAll} from './BooksAPI'
 import "./App.css";
 
-
 function App() {
 
-      const [state, setState] = useState([])
+    const [state, setState] = useState([])
     const [books, setBooks] = useState([])
     const store = useSelector(state => state)
     const dispatch = useDispatch()
@@ -24,26 +23,29 @@ function App() {
                     ...prev,
                     ...books
                 ]
-    })
+            })
+          
         }
         fun()
     }, [books, dispatch, store])
 
-  
+  //Get Default Book 
     useEffect(() => {
         const fun = async () => {
             setBooks(await getAll())
         }
         fun()
         books.map(e=>dispatch({type:'add', payload:e}))
-    }, [ dispatch])
+    }, [dispatch])
+  
+  
   return (
     <div className="app">
-      
         <Routes>
         <Route path="/" element={<BooksShelf state={state} />} />
         <Route path='/search' exact element={<NavSearch state={state} />} />
         </Routes>
+    
 
     </div>
   );
