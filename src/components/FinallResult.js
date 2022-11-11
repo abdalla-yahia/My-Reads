@@ -9,7 +9,7 @@ export default function FinallResult(props) {
     const [resultSearch, setResultSearch] = useState([])
     const [state, setState] = useState('')
     const dispatch =useDispatch()
-    const store = useSelector(state => state.currentlyReading)
+    const store = useSelector(state => state.mainStore)
     
     useEffect(() => {
         const ResultHandeller = async () => {

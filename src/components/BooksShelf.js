@@ -13,7 +13,7 @@ const BooksShelf = () => {
     useEffect(() => {
         const fun =async () => {
             await store
-            setState( await store.currentlyReading)
+            setState( await store.mainStore)
         }
         fun()
     }, [dispatch, store])

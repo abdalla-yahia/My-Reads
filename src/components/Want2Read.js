@@ -6,7 +6,7 @@ export default function Want2Read(props) {
     const [state, setState] = useState([])
     const dispatch = useDispatch()
     
-    const store = useSelector(state => state.currentlyReading)
+    const store = useSelector(state => state.mainStore)
     useEffect(() => {
        
             setState(props.shelf)

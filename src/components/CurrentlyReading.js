@@ -4,7 +4,7 @@ import { useSelector,useDispatch } from 'react-redux'
 
 export default function CurrentlyReading(props) {
     const [state, setState] = useState([])
-    const store = useSelector(state => state.currentlyReading)
+    const store = useSelector(state => state.mainStore)
     const dispatch = useDispatch()
 
     useEffect(() => {
