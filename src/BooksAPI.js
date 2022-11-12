@@ -13,7 +13,7 @@ const headers = {
 export const get = async (bookId) =>
  await axios.get(`${api}/books/${bookId}`, { headers })
     .then((res) => {
-     return res.data.book
+    return res.data.book
     })
 
 export const getAll = () =>

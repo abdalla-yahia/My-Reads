@@ -1,7 +1,7 @@
 
 import React, { useState} from 'react'
 import { useEffect } from 'react';
-import { search } from '../BooksAPI';
+import { search,update } from '../BooksAPI';
 import { useDispatch,useSelector} from 'react-redux';
 
 export default function FinallResult(props) {
@@ -17,11 +17,13 @@ export default function FinallResult(props) {
     useEffect(() => {
         const ResultHandeller = async () => {
             if (props.input !== "") {
-                const res = setResultSearch(await search(props.input))
+                const handeller = setTimeout(async() => {
+                    const res = setResultSearch(await search(props.input))
+                    
+                },1000)
             }
         }
         ResultHandeller()
-        
     }, [props.input, store])
 
 const RESULT = () => {
@@ -70,7 +72,8 @@ const RESULT = () => {
                                                 
                                                 dispatch({ type: 'add', payload: e })
                                                 e.shelf = i.target.value
-                                            }
+                                    }
+                                    update(e, i.target.value)
                                                 }
                                         }>
                                         <option value="disabled" disabled>

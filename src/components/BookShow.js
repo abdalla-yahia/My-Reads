@@ -1,5 +1,6 @@
 import React,{useState,useEffect,useCallback} from 'react'
 import {useDispatch } from 'react-redux'
+import { update } from '../BooksAPI'
 
 export default function BookShow(props) {
     const [state, setState] = useState([])
@@ -46,7 +47,8 @@ export default function BookShow(props) {
                                             
                                             }
                                         })
-                                        el.shelf = i.target.value
+                                    el.shelf = i.target.value
+                                    update(el,i.target.value)
                                     }
                                     }>
                                         <option value="disabled" disabled>

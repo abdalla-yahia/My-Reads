@@ -7,11 +7,10 @@ import {Link } from "react-router-dom";
 
 const BooksShelf = (props) => {
     const [state, setState] = useState([])
-    
     useEffect(() => {
         setState(props.state)
     }, [props.state])
-    
+
     return (
         <div className="list-books">
     <div className="list-books-title">
