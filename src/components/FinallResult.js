@@ -15,15 +15,15 @@ export default function FinallResult(props) {
     }, [props.state])
     
     useEffect(() => {
-        const ResultHandeller = async () => {
+        const ResultHandler = async () => {
             if (props.input !== "") {
-                const handeller = setTimeout(async() => {
+                const handler = setTimeout(async() => {
                     const res = setResultSearch(await search(props.input))
                     
                 },1000)
             }
         }
-        ResultHandeller()
+        ResultHandler()
     }, [props.input, store])
 
 const RESULT = () => {

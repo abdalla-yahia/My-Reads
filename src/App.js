@@ -24,7 +24,6 @@ function App() {
                     ...books
                 ]
             })
-          
         }
         fun()
     }, [books, dispatch, store])
